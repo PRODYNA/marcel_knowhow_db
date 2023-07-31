@@ -97,4 +97,3 @@ To use push a new image to the Azure Container Registry set the three secrets in
 - Use **0.5 CPU with 1 GB RAM** for the container
 - Set environment variable `NEO4J_AUTH=none`
 - Set environment variable `NEO4J_dbms_security_procedures_unrestricted=apoc.*`
-- Enable Ingress
