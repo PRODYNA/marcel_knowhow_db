@@ -92,13 +92,9 @@ To use push a new image to the Azure Container Registry set the three secrets in
 ![ACR Secrets](docs/Github_actions_secrets.png)
 
 # Azure Container Apps Service
-- Container app name `marcel-knowhow-db`
+- Deploy as a sidecar container `marcel-knowhow-db`
 - Select the db image from the Azure Container Registry
 - Use **0.5 CPU with 1 GB RAM** for the container
 - Set environment variable `NEO4J_AUTH=none`
 - Set environment variable `NEO4J_dbms_security_procedures_unrestricted=apoc.*`
 - Enable Ingress
-- Limit access to Container Apps Environment
-- Choose **TCP**
-- Set target and exposed port to `7687`
-- After deployment copy the endpoint from Ingress tab for backend deployment
