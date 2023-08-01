@@ -80,8 +80,7 @@ docker buildx build \
 Push manually build image to registry
 Use `docker push jnicontainerregistry.azurecr.io/marcel_knowhow_db:latest` to push the image to the registry.
 
-### Continuous Integration and Deployment with GitHub Actions
-TODO This is not yet implemented.
+### Continuous Integration and Devlivery with GitHub Actions
 The project comes with a GitHub Actions workflow to build and push the image to the Azure Container Registry (see `./.github/workflows/db.yaml`).
 
 To use push a new image to the Azure Container Registry set the three secrets in Github:
