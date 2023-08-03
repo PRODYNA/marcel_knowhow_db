@@ -1,71 +1,40 @@
  ```
- __  __                    _   ____             _                  _ 
-|  \/  | __ _ _ __ ___ ___| | | __ )  __ _  ___| | _____ _ __   __| |
-| |\/| |/ _` | '__/ __/ _ \ | |  _ \ / _` |/ __| |/ / _ \ '_ \ / _` |
-| |  | | (_| | | | (_|  __/ | | |_) | (_| | (__|   <  __/ | | | (_| |
-|_|  |_|\__,_|_|  \___\___|_| |____/ \__,_|\___|_|\_\___|_| |_|\__,_|
+ __  __                    _   ____        _        _                    
+|  \/  | __ _ _ __ ___ ___| | |  _ \  __ _| |_ __ _| |__   __ _ ___  ___ 
+| |\/| |/ _` | '__/ __/ _ \ | | | | |/ _` | __/ _` | '_ \ / _` / __|/ _ \
+| |  | | (_| | | | (_|  __/ | | |_| | (_| | || (_| | |_) | (_| \__ \  __/
+|_|  |_|\__,_|_|  \___\___|_| |____/ \__,_|\__\__,_|_.__/ \__,_|___/\___|
                                                                      
 ```
-Marcel Know How Backend Project
+Marcel Know How Database Project
 ===============================
 This projects holds the database-related files for Marcel's know how session.
-The database holds the data related to general knowledge questions.
+The database holds the data related to general knowledge questions in the answering results.
 
-
-
-# Local Development Environment
-
-## Using Visual Studio Code
-Inside VSC hit Ctrl+Shift+P and search for `python: create environment`.
-Select `.venv`, a Python executable with Python 3.10 or higher and choose to install the dependencies from the requirements.txt file.
-You should be able to run and debug the Fast API server by hitting F5 on the main.py file.
-
-## Without Visual Studio Code
-It is recommened to create a virtual environment with Python 3.10 or higher.
-Given you have Python installed run run the following command in the project's root:
-```bash
-python3 -m venv .venv
-```
-Activate the virtual environment with:
-```bash
-source .venv/bin/activate
-```
-Install the dependencies with:
-```bash
-pip install -r requirements.txt
-```
-
+# Dependency to Main Project
+This project depends indirectly on the main project 
+[Marcel Knowhow Main](https://github.com/PRODYNA/marcel_knowhow_main). 
+The main project holds a script to create and distribute AI generated questions to this database 
+project (into the folder `./neo4j_import/questions_import.cypher`).
 
 # Shipping
 
-## Import of Questions
-To collect and import questions to the database the python script at 
-`./db/questions_input/create_questions.py` is doing the job.
-This script is  
-- Querying questions from the OpenAI GPT-4 model
-- Writes the question in JSON file
-- Reads the JSON file and creates a cypher import file for neo4j
-
-The cypher import file will be written to `./db/docker_image/import/questsions_import.cypher`.
-To run the script you have to provide a valid OpenAI API key in a `.env` file in the project's root.
-
-Example for `.env` file:
-```
-openai.api_key=<YOUR_KEY>
-```
+## Database Import of AI generated Questions
+As mentioned above the cypher import file will be written to `./neo4j_import/questions_import.cypher`.
 The database Dockerfile in `./db/docker_image/Dockerfile` will take the import file to create
 the containing questions as new nodes in the database when the database container starts up.
+The script `neo4j_scripts/import.sh` will be installed in the Docker image to execute the import
+when the container starts up.
 
 ## Docker Setup
-Always _cd_ into `./db/docker_image`.
-### Local Docker Environment
 
+### Local Docker Environment
 Build a local Docker image with:
 ```bash
 docker buildx build -t marcel_knowhow_db .
 ```
 
-Use the docker compose file with `docker-compose up -d` to start the backend.
+Use the docker compose file with `docker compose up -d` to start the backend.
 Connect to local neo4j browser with `http://localhost:7474/browser/`.
 
 ### Image for Azure Container Registry and Azure Container Apps Service
