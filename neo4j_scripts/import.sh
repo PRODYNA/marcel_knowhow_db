@@ -11,6 +11,6 @@ while true; do
 done
 echo "Neo4j is ready for recieving import script!"
 
-cat /var/lib/neo4j/import/questions_import.cypher | cypher-shell
+cat /var/lib/neo4j/import/questions.cypher | cypher-shell
 echo "Import script finished!"
 exit 0

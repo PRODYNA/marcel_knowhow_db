@@ -13,8 +13,7 @@ RUN chmod +x /import.sh
 COPY neo4j_scripts/wrapper.sh /wrapper.sh
 RUN chmod +x /wrapper.sh
 
-COPY neo4j_import/questions_import.cypher /var/lib/neo4j/import/
-# RUN chown neo4j:neo4j /var/lib/neo4j/import/questions_import.cypher
+COPY neo4j_import/questions.cypher /var/lib/neo4j/import/
 
 # USER neo4j
 ENTRYPOINT ["/wrapper.sh"]
