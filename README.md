@@ -11,6 +11,57 @@ Marcel Know How Database Project
 This projects holds the database-related files for Marcel's know how session.
 The database holds the data related to general knowledge questions in the answering results.
 
+# Working with a Database (like Neo4j)
+Use the neo4j browser at http://localhost:7474/browser/ to login an query the database. Such queries can be used inside and outside
+of an app to create, update or delete data.
+
+The query `MATCH (n) RETURN n` will return all nodes in the database.
+<img src="docs/all_nodes.png" alt="All nodes in the database"/>
+
+Use `MATCH (q:Question)--(a:Answer) RETURN q,a` to return all questions which have answer(s).
+<img src="docs/answered_questions.png" alt="All nodes in the database"/>
+
+To query the 10 questions with the longest reaction time in average use:
+```cypher
+MATCH 
+	(q:Question)--(a:Answer)
+RETURN 
+	q.id AS ID, 
+	q.question AS Question, 
+	AVG(a.reaction_time_ms) AS AverageReactionTime
+ORDER BY 
+	AverageReactionTime DESC
+LIMIT 10;
+```
+This results in something like:
+```
+╒═══╤══════════════════════════════════════════════════════════════════════╤═══════════════════╕
+│ID │Question                                                              │AverageReactionTime│
+╞═══╪══════════════════════════════════════════════════════════════════════╪═══════════════════╡
+│26 │"Is Mount Etna located in Greece?"                                    │19896.0            │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│16 │"Did England win the Fifa world cup in 1966?"                         │6273.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│20 │"Is the official language of Austria German?"                         │4384.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│34 │"Did the Union of Soviet Socialist Republics (USSR) consist of 15 repu│4233.0             │
+│   │blics?"                                                               │                   │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│45 │"Did Leonardo da Vinci originate from France?"                        │4101.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│33 │"Is the Swiss Guard responsible for the safety of the Pope?"          │3844.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│47 │"Did the Viking age end in the 11th century?"                         │3843.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│24 │"Did the Hundred Years' War between England and France last exactly 10│3806.0             │
+│   │0 years?"                                                             │                   │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│7  │"Did Spain remain neutral during both World Wars?"                    │3746.0             │
+├───┼──────────────────────────────────────────────────────────────────────┼───────────────────┤
+│21 │"Was the Magna Carta signed in the 13th Century?"                     │3259.0             │
+└───┴──────────────────────────────────────────────────────────────────────┴───────────────────┘
+```
+
 # Dependency to Main Project
 This project depends indirectly on the main project 
 [Marcel Knowhow Main](https://github.com/PRODYNA/marcel_knowhow_main). 
