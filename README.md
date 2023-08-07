@@ -16,9 +16,11 @@ Use the neo4j browser at http://localhost:7474/browser/ to login an query the da
 of an app to create, update or delete data.
 
 The query `MATCH (n) RETURN n` will return all nodes in the database.
+
 <img src="docs/all_nodes.png" alt="All nodes in the database"/>
 
 Use `MATCH (q:Question)--(a:Answer) RETURN q,a` to return all questions which have answer(s).
+
 <img src="docs/answered_questions.png" alt="All nodes in the database"/>
 
 To query the 10 questions with the longest reaction time in average use:
